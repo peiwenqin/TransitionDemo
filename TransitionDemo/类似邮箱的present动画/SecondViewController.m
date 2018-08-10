@@ -10,7 +10,7 @@
 #import "PPFreeTransition.h"
 #import "PPInteractiveTransition.h"
 
-@interface SecondViewController ()
+@interface SecondViewController ()<UIViewControllerTransitioningDelegate>
 
 @property (nonatomic, strong) PPInteractiveTransition *transition;
 
@@ -35,6 +35,18 @@
     [button addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];
     
+    UIButton *nextBtn = [[UIButton alloc] initWithFrame:CGRectMake(100, 400, 100, 100)];
+    [nextBtn setTitle:@"next" forState:UIControlStateNormal];
+    [nextBtn addTarget:self action:@selector(nextAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:nextBtn];
+    NSLog(@"11-----%@",self.view);
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    NSLog(@"22-----%@",self.view);
 }
 
 - (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
@@ -42,9 +54,17 @@
     return [PPFreeTransition transitionWithType:operation == UINavigationControllerOperationPush ? ADCardTransitionTypePush : ADCardTransitionTypePop];
 }
 
+
 - (void)backAction
 {
-    [self.navigationController popViewControllerAnimated:YES];
+//    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)nextAction
+{
+    SecondViewController *vc = [[SecondViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

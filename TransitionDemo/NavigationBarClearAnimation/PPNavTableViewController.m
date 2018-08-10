@@ -19,20 +19,42 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.tableView.frame = CGRectMake(0, -64, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+    self.tableView.frame = CGRectMake(0, -kStatusAndNavigationBarHeight, kScreenWidth, kScreenHeight);
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-    //去除 navigationBar 底部的细线
-    self.navigationController.navigationBar.shadowImage = [UIImage new];
     
-    _navBgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.navigationController.navigationBar.frame.size.width, self.navigationController.navigationBar.frame.size.height + 20)];
+    _navBgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kStatusAndNavigationBarHeight)];
     [self.navigationController.view insertSubview:_navBgView belowSubview:self.navigationController.navigationBar];
     
     UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"headerBg"]];
-    imgView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 300);
+    imgView.frame = CGRectMake(0, 0, kScreenWidth, 300);
     self.tableView.tableHeaderView = imgView;
     
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    //去除 navigationBar 底部的细线
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    //设置导航透明
+    for (UIView *view in self.navigationController.navigationBar.subviews) {
+        if (view.tag == 100) {
+            view.alpha = 0;
+        }
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    //去除 navigationBar 底部的细线
+    self.navigationController.navigationBar.shadowImage = nil;
+}
+
 
 #pragma mark----------------------
 #pragma mark setupUI

@@ -74,6 +74,7 @@
 		A5ACE53C2022FAFE00D443C9 /* PPFreeTransition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPFreeTransition.m; sourceTree = "<group>"; };
 		AA2989902089DDF3008F1AEA /* PPInteractiveTransition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPInteractiveTransition.h; sourceTree = "<group>"; };
 		AA2989912089DDF3008F1AEA /* PPInteractiveTransition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPInteractiveTransition.m; sourceTree = "<group>"; };
+		AA6EB00320F8BC0700C56B84 /* TransitionDemo.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransitionDemo.pch; sourceTree = "<group>"; };
 		AA9AC03F208EFE6700E80E41 /* PPMagicImageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPMagicImageCell.h; sourceTree = "<group>"; };
 		AA9AC040208EFE6700E80E41 /* PPMagicImageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPMagicImageCell.m; sourceTree = "<group>"; };
 		AA9AC041208EFE6700E80E41 /* PPMagicImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PPMagicImageCell.xib; sourceTree = "<group>"; };
@@ -140,7 +141,7 @@
 				A57433F120294626000E9F8E /* TableViewController.m */,
 				AA2989902089DDF3008F1AEA /* PPInteractiveTransition.h */,
 				AA2989912089DDF3008F1AEA /* PPInteractiveTransition.m */,
-				AAB21285208DC360006F53D2 /* 类似present动画 */,
+				AAB21285208DC360006F53D2 /* 类似邮箱的present动画 */,
 				AAB21286208DC495006F53D2 /* magicMoveAnimation */,
 				AAB21288208DC4F3006F53D2 /* NavigationBarClearAnimation */,
 				AAB21287208DC4B1006F53D2 /* supportingFile */,
@@ -167,7 +168,7 @@
 			path = TransitionDemoUITests;
 			sourceTree = "<group>";
 		};
-		AAB21285208DC360006F53D2 /* 类似present动画 */ = {
+		AAB21285208DC360006F53D2 /* 类似邮箱的present动画 */ = {
 			isa = PBXGroup;
 			children = (
 				A5ACE53B2022FAFE00D443C9 /* PPFreeTransition.h */,
@@ -177,7 +178,7 @@
 				A5ACE5382022F45A00D443C9 /* SecondViewController.h */,
 				A5ACE5392022F45A00D443C9 /* SecondViewController.m */,
 			);
-			path = "类似present动画";
+			path = "类似邮箱的present动画";
 			sourceTree = "<group>";
 		};
 		AAB21286208DC495006F53D2 /* magicMoveAnimation */ = {
@@ -205,6 +206,7 @@
 				A5ACE5092022E64C00D443C9 /* Main.storyboard */,
 				A5ACE5122022E64C00D443C9 /* main.m */,
 				A5ACE50C2022E64C00D443C9 /* Assets.xcassets */,
+				AA6EB00320F8BC0700C56B84 /* TransitionDemo.pch */,
 			);
 			path = supportingFile;
 			sourceTree = "<group>";
@@ -530,6 +532,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 43BLLW3XG5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = TransitionDemo/supportingFile/TransitionDemo.pch;
 				INFOPLIST_FILE = TransitionDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.helloWorld.TransitionDemo;
@@ -544,6 +548,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 43BLLW3XG5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = TransitionDemo/supportingFile/TransitionDemo.pch;
 				INFOPLIST_FILE = TransitionDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.helloWorld.TransitionDemo;

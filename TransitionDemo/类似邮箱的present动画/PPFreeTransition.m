@@ -54,30 +54,33 @@
 - (void)pushAnimation:(id<UIViewControllerContextTransitioning>)transitionContext {
     
     UIView *containerView = [transitionContext containerView];
-    UIViewController *fromVC = (UIViewController *)[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];//UITransitionContextFromViewKey
-    UIViewController *toVC = (UIViewController *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];//UITransitionContextToViewKey
+    UIView *fromView = [transitionContext viewForKey:UITransitionContextFromViewKey];
+    UIView *toView = [transitionContext viewForKey:UITransitionContextToViewKey];
     
-    //实现界面截屏
-
-    
-    UIView *tempView = [fromVC.view snapshotViewAfterScreenUpdates:NO];
-    tempView.frame = fromVC.view.frame;
-    fromVC.view.hidden = YES;
+    //实现界面截屏---不能用当前vc截屏，否则会导致截屏的导航无效
+    UIView *tempView = [[UIApplication sharedApplication].keyWindow snapshotViewAfterScreenUpdates:NO];
+    tempView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
+    tempView.layer.cornerRadius = 10;
+    tempView.layer.masksToBounds = YES;
+//    fromView.hidden = YES;
     [containerView addSubview:tempView];
-    [containerView addSubview:toVC.view];
+    [containerView addSubview:toView];
     
-    toVC.view.frame = CGRectMake(0, ScreenHeight, ScreenWidth, ScreenHeight);
+    toView.frame = CGRectMake(0, ScreenHeight, ScreenWidth, ScreenHeight - 250);
 
     //仿iPhone邮箱编辑动画
     [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
         
-        toVC.view.transform = CGAffineTransformMakeTranslation(0, -(ScreenHeight - 200));
+        toView.frame = CGRectMake(0, 250, ScreenWidth, ScreenHeight - 250);
         tempView.transform = CGAffineTransformMakeScale(0.85, 0.85);
-        [containerView layoutIfNeeded];
+        fromView.transform = CGAffineTransformMakeScale(0.85, 0.85);
         
     } completion:^(BOOL finished) {
 
-        [transitionContext completeTransition:finished];//该句话必要，否则第二个界面不响应点击事件--为什么？可是写了，fromVC消失了。。。解决
+        fromView.transform = CGAffineTransformMakeScale(1, 1);
+        [transitionContext completeTransition:finished];//该句话必要，否则第二个界面不响应点击事件
+        toView.frame = CGRectMake(0, 250, ScreenWidth, ScreenHeight - 250);
+
     }];
 }
 
@@ -93,15 +96,14 @@
 
     [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
         
+        fromVC.view.frame = CGRectMake(0, ScreenHeight, ScreenWidth, ScreenHeight);
         tempView.transform = CGAffineTransformIdentity;
-        fromVC.view.transform = CGAffineTransformIdentity;
 
     } completion:^(BOOL finished) {
         
-        toVC.view.hidden = NO;
         [containerView addSubview:toVC.view];
 
-        [transitionContext completeTransition:YES];
+        [transitionContext completeTransition:finished];
         [tempView removeFromSuperview];
     }];
 }

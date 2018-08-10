@@ -1,0 +1,25 @@
+//
+//  TransitionDemo.pch
+//  TransitionDemo
+//
+//  Created by wq pei on 2018/7/13.
+//  Copyright © 2018年 helloWorld. All rights reserved.
+//
+
+#ifndef TransitionDemo_pch
+#define TransitionDemo_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#define kScreenWidth [[UIScreen mainScreen] bounds].size.width
+#define kScreenHeight [[UIScreen mainScreen] bounds].size.height
+
+//iPhone X
+#define kIPhoneX ([UIScreen mainScreen].bounds.size.width == 375.f && [UIScreen mainScreen].bounds.size.height == 812.f ? YES : NO)
+//标志iPhoneX的顶部和底部安全距离
+#define kStatusBarHeight (kIPhoneX ? 44.f : 20.f)
+#define kStatusAndNavigationBarHeight (kIPhoneX ? 88.f : 64.f)
+#define kBottomHeight (kIPhoneX ? 34.f : 1.f) //iPhoneX底部的安全距离
+
+#endif /* TransitionDemo_pch */

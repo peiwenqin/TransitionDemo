@@ -9,8 +9,9 @@
 #import "FirstViewController.h"
 #import "SecondViewController.h"
 #import "PPInteractiveTransition.h"
+#import "PPFreeTransition.h"
 
-@interface FirstViewController ()
+@interface FirstViewController ()<UIViewControllerTransitioningDelegate>
 
 @property (nonatomic, strong) PPInteractiveTransition *transition;
 
@@ -23,7 +24,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.view.backgroundColor = [UIColor redColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     
 //    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(10, 10, 80, 30)];
 //    [btn setTitle:@"返回" forState:UIControlStateNormal];
@@ -41,9 +42,14 @@
 {
     [super viewWillAppear:animated];
     
-    self.navigationController.navigationBar.hidden = NO;
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    self.navigationController.navigationBar.hidden = NO;
+}
 
 
 - (void)backAction
@@ -53,11 +59,23 @@
 
 - (IBAction)nextPageAction:(id)sender {
     SecondViewController *vc = [[SecondViewController alloc] init];
-    self.navigationController.delegate = vc;//***1***必须在push之前复制代理，否则不能找到自定义的push方法
-    [self.navigationController pushViewController:vc animated:YES];
+//    self.navigationController.delegate = vc;//***1***必须在push之前复制代理，否则不能找到自定义的push方法
+//    [self.navigationController pushViewController:vc animated:YES];
+    vc.transitioningDelegate = self;
+    [self presentViewController:vc animated:YES completion:^{
+        
+    }];
 }
 
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
+{
+    return [PPFreeTransition transitionWithType:ADCardTransitionTypePush];
+}
 
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
+{
+    return [PPFreeTransition transitionWithType:ADCardTransitionTypePop];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

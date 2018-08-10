@@ -11,6 +11,5 @@
 @interface SecondViewController : UIViewController<UINavigationControllerDelegate>
 
 
-//@property (assign, nonatomic) id<ad> <#name#>
 
 @end
